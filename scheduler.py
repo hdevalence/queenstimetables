@@ -119,7 +119,7 @@ class Scheduler:
     
     def addLecture(self,cal,course,lectNum,start,end):
         ev = cal.add('vevent')
-        ev.add('summary').value = u'%s Lecture \u2116 %d' %(course['name'],lectNum)
+        ev.add('summary').value = u'%s Lecture \u2116%d' %(course['name'],lectNum)
         ev.add('description').value = course['location']
         ev.add('dtstart').value = start
         ev.add('dtend').value = end
