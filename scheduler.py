@@ -30,8 +30,14 @@ class Scheduler:
         <body>
             <div id="page">
             <div id="intro">
-            Enter up to six courses below and hit submit to generate an ical
+            <p>
+            Enter up to six courses below and hit submit to generate an ICalendar
             file of your class schedule for use with e.g. Google Calendar.
+            </p>
+            <p>
+            You can enter the time as either a slot number, or as a
+            comma-seperated list of times, e.g., "Mon2:30-4:00,Tue9:00-10:00,Fri12:00-3:00".
+            </p>
             </div>
             <form id="theform" name="input" action="calendar.ics" method="get">
                 <table>
@@ -69,12 +75,24 @@ class Scheduler:
                 })
         for course in courses:
             if course['slot'] not in self.slots:
-                return self.invalidSlot(course)
+                try:
+                    self.parseTimes(course['slot'])
+                except IOError:
+                    return self.invalidSlot(course)
         cal = vobject.iCalendar()
         for course in courses:
             self.addToCalendar(cal,course)
         cherrypy.response.headers['Content-Type']= 'text/calendar'
         return cal.serialize()
+
+    def parseTimes(self,inputString):
+        times = [_.strip() for _ in inputString.split(',')]
+        output = []
+        for time in times:
+            day = time[0:3]
+            starttime, endtime = loadslots.toTimes(time[3:])
+            output.append( (loadslots.weekdayOffsets[day], starttime, endtime) )
+        self.slots[inputString] = output
 
     def addToCalendar(self,cal,course):
         termStart = datetime.date(2012,1,9)
