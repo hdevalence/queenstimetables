@@ -1,3 +1,13 @@
+#!/usr/bin/env python
+
+"""
+A mini webapp to generate icalendar files for people's timetables.
+"""
+
+__author__    = 'Henry de Valence'
+__copyright__ = '(C) 2012 Henry de Valence'
+__license__   = 'GPL'
+__email__     = 'queenstimetables@hdevalence.ca'
 
 import cherrypy
 import datetime
