@@ -1,0 +1,19 @@
+body {
+    background-color:#101010;
+}
+
+#page {
+    width:800px;
+    padding:50px;
+    -moz-border-radius: 15px;
+    border-radius: 15px;
+    background-color:#EEEEEE;
+    margin-left:auto;
+    margin-right:auto;
+    font-family:"Myriad Pro","Myriad Web","Lucida Sans Unicode", "Lucida Grande", sans-serif;
+    box-shadow: inset 0 0 15px #888;
+}
+
+
+
+

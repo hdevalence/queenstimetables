@@ -5,11 +5,10 @@ import scheduler
 
 scheduleFile = "textonly.txt"
 
-cherrypy.server.socket_port = 80
-cherrypy.server.socket_host = '0.0.0.0'
-cherrypy.server.thread_pool_max = 10
+import os.path
+conf = os.path.join(os.path.dirname(__file__), 'config.conf')
 
 s = scheduler.Scheduler(scheduleFile)
 
-cherrypy.quickstart(s)
+cherrypy.quickstart(s,config=conf)
 

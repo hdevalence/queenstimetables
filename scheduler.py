@@ -23,8 +23,12 @@ class Scheduler:
         html =  """
         <!DOCTYPE html>
         <html>
-        <head><title>Queen's Course Calendar Generator</title></head>
+        <head>
+        <link rel="stylesheet" type="text/css" href="style.css" />
+        <title>Queen's Course Calendar Generator</title>
+        </head>
         <body>
+            <div id="page">
             <div id="intro">
             Enter up to six courses below and hit submit to generate an ical
             file of your class schedule for use with e.g. Google Calendar.
@@ -46,6 +50,7 @@ class Scheduler:
                 </table>
                 <input type="submit" value="Generate Calendar"/>
             </form>
+            </div>
         </body>
         </html>"""
         return html
@@ -105,14 +110,18 @@ class Scheduler:
     def invalidSlot(self,course):
         html= """
         <!DOCTYPE html>
-        <html><head><title>Error!</title></head>
-        <body><div id="errortext">
+        <html>
+        <head>
+        <link rel="stylesheet" type="text/css" href="style.css" />
+        <title>Error!</title>
+        </head>
+        <body><div id="page"><div id="errortext">
         Something has gone terribly wrong!  <br/>
         We can't find timetable data for your course %(name)s,
         which you said had slot "%(slot)s". <br/><br/>
         If you think this is a website error, try emailing
         <a href="mailto:queenstimetables@hdevalence.ca">queenstimetables@hdevalence.ca</a>. <br/>
-        </div></body></html>""" % course
+        </div></div></body></html>""" % course
         return html
 
 
