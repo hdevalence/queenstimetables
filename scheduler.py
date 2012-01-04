@@ -52,7 +52,6 @@ class Scheduler:
 
     @cherrypy.expose
     def calendar_ics(self,**kwargs):
-        cherrypy.response.headers['Content-Type']= 'text/calendar'
         #Build list of courses.
         courses = []
         for i in range(1,7):
@@ -69,6 +68,7 @@ class Scheduler:
         cal = vobject.iCalendar()
         for course in courses:
             self.addToCalendar(cal,course)
+        cherrypy.response.headers['Content-Type']= 'text/calendar'
         return cal.serialize()
 
     def addToCalendar(self,cal,course):
