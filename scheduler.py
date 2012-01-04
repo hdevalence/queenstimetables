@@ -29,17 +29,22 @@ class Scheduler:
         </head>
         <body>
             <div id="page">
+            <h1>Queen's Timetable Generator</h1>
             <div id="intro">
             <p>
             Enter up to six courses below and hit submit to generate an ICalendar
-            file of your class schedule for use with e.g. Google Calendar.
+            file of your class schedule for use with e.g. Google Calendar, Microsoft Outlook,
+            Mozilla Thunderbird, &c.
             </p>
             <p>
-            You can enter the time as either a slot number, or as a
+            You can enter the time as either a slot number in the 
+            <a href="http://www.queensu.ca/registrar/currentstudents/coursetimetable/slotcharts.html">
+            pre-SOLUS slot numbering scheme</a>,
+            or as 
             comma-seperated list of times, e.g., "Mon2:30-4:00,Tue9:00-10:00,Fri12:00-3:00".
             </p>
             </div>
-            <form id="theform" name="input" action="calendar.ics" method="get">
+            <form align="center" id="theform" name="input" action="calendar.ics" method="get">
                 <table>
                 <tr><td></td> <td>Course Name</td> <td>Location</td> <td>Slot Number</td></tr>
         """
@@ -57,9 +62,17 @@ class Scheduler:
                 <input type="submit" value="Generate Calendar"/>
             </form>
             </div>
+        """ + self.footer() + """
         </body>
         </html>"""
         return html
+
+    def footer(self):
+        return """
+        <div id="footer">
+        Created by Henry de Valence (ArtSci '13). 
+        <a href="mailto:queenstimetables@hdevalence.ca">Send feedback by email</a>.
+        </div>"""
 
     @cherrypy.expose
     def calendar_ics(self,**kwargs):
@@ -89,7 +102,7 @@ class Scheduler:
         times = [_.strip() for _ in inputString.split(',')]
         output = []
         for time in times:
-            day = time[0:3]
+            day = time[0:3].lower()
             starttime, endtime = loadslots.toTimes(time[3:])
             output.append( (loadslots.weekdayOffsets[day], starttime, endtime) )
         self.slots[inputString] = output
@@ -139,7 +152,8 @@ class Scheduler:
         which you said had slot "%(slot)s". <br/><br/>
         If you think this is a website error, try emailing
         <a href="mailto:queenstimetables@hdevalence.ca">queenstimetables@hdevalence.ca</a>. <br/>
-        </div></div></body></html>""" % course
+        </div></div>""" %course
+        html += self.footer() + """</body></html>""" 
         return html
 
 

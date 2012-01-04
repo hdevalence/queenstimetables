@@ -2,6 +2,17 @@ body {
     background-color:#101010;
 }
 
+#theform {
+    margin-left:auto;
+    margin-right:auto;
+}
+
+#footer {
+    text-align:center;
+    color:#EEEEEE;
+    padding:25px;
+}
+
 #page {
     width:800px;
     padding:50px;

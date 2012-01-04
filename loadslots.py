@@ -24,15 +24,15 @@ def loadFromFile(fname):
             lastSlot = slot
             slotDict[lastSlot] = []
         starttime,endtime = toTimes(timerange)
-        slotDict[lastSlot].append( (weekdayOffsets[day.strip()],starttime,endtime) )
+        slotDict[lastSlot].append( (weekdayOffsets[day.strip().lower()],starttime,endtime) )
     return slotDict
 
 weekdayOffsets = {
-        'Mon':0,
-        'Tue':1,
-        'Wed':2,
-        'Thu':3,
-        'Fri':4
+        'mon':0,
+        'tue':1,
+        'wed':2,
+        'thu':3,
+        'fri':4
         }
 
 
