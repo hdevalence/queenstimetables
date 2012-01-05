@@ -78,7 +78,7 @@ class Scheduler:
             <ul id="courselist">
         """
         for i in range(1,MAX_COURSES +1):
-            html += """
+            html += u"""
             <li class="courserow" id="courserow%(i)d">
             <ul>
                 <li class="subrow" id="course%(i)d">
@@ -100,7 +100,7 @@ class Scheduler:
             </ul>
             </li>
             """ % {'i':i}
-        html += """
+        html += u"""
                 </ul>
                 <button id="addcourse" type="button" onclick="addCourse()">Add Course</button>
                 <input id="engage" type="submit" value="Generate Calendar"/>
@@ -111,7 +111,7 @@ class Scheduler:
         return html
 
     def footer(self):
-        return """
+        return u"""
         <div id="footer">
         Created by Henry de Valence (ArtSci ’13). 
         <a href="mailto:queenstimetables@hdevalence.ca">Send feedback by email</a>.
