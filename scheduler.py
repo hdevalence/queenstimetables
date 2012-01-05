@@ -16,6 +16,8 @@ import vobject
 
 import loadslots
 
+MAX_COURSES = 8
+
 class Scheduler:
     def __init__(self,slotfilename):
         self.slots = loadslots.loadFromFile(slotfilename)
@@ -40,12 +42,22 @@ class Scheduler:
     def index(self):
         html = self.header() + u"""
         <body>
+            <script type="text/javascript">
+            var courseId = 0;
+            function addCourse() 
+            {
+                courseId++;
+                var li = document.getElementById("courserow" + courseId);
+                li.style.display="inline";
+            }
+            </script>
             <div id="page">
             <h1>Queen’s Timetable Generator</h1>
             <div id="intro" >
                 <div class="step">
                     <h2>Step 1</h2>
                     Add the names of your courses, e.g., “MATH-414”.
+                    Leave fields blank to omit them.
                 </div>
                 <div class="step">
                     <h2>Step 2</h2>
@@ -62,26 +74,34 @@ class Scheduler:
             </div>
             <div id="theform">
             <form align="center" name="input" action="calendar.ics" method="get">
-                <table id="thetable">
-                <tr><td></td> <td>Course Name</td> <td>Location</td> <td>Slot Number</td></tr>
+            <ul id="courselist">
         """
-        for i in range(1,8):
+        for i in range(1,MAX_COURSES +1):
             html += """
-                <tr>
-                    <td class="courselabel">Course %(i)d</td>
-                    <td><input type="text" name="course%(i)dname"/></td>
-                    <td><input type="text" name="course%(i)dlocation"/></td>
-                    <td><input type="text" name="course%(i)dslot"/></td>
-                </tr>
-                <tr>
-                    <td class="tutoriallabel">Tutorial</td>
-                    <td></td>
-                    <td><input type="text" name="tutorial%(i)dlocation"/></td>
-                    <td><input type="text" name="tutorial%(i)dslot"/></td>
-                </tr>
-                """ % {'i':i}
+            <li class="courserow" id="courserow%(i)d">
+            <ul>
+                <li class="subrow" id="course%(i)d">
+                <input class="courseitem" type="text"
+                    name="course%(i)slot" placeholder="Lecture Slot/Time">
+                <input class="courseitem" type="text" 
+                    name="course%(i)dlocation" placeholder="Lecture Location">
+                <input class="courseitem" type="text" 
+                    name="course%(i)dname" placeholder="Course Name">
+                <br style="clear:both;">
+                </li>
+                <li class="subrow" id="tutorial%(i)d">
+                <input class="courseitem" type="text"
+                    name="tutorial%(i)dslot" placeholder="Tutorial Slot/Time">
+                <input class="courseitem" type="text"
+                    name="tutorial%(i)dlocation" placeholder="Tutorial Location">
+                <br style="clear:both;">
+                </li>
+            </ul>
+            </li>
+            """ % {'i':i}
         html += """
-                </table>
+                </ul>
+                <button id="addcourse" type="button" onclick="addCourse()">Add Course</button>
                 <input id="engage" type="submit" value="Generate Calendar"/>
             </form>
             </div>
@@ -103,7 +123,7 @@ class Scheduler:
     def calendar_ics(self,**kwargs):
         #Build list of courses.
         courses = []
-        for i in range(1,8):
+        for i in range(1,MAX_COURSES +1):
             if kwargs['course%dname' % i] == '':
                 continue
             courses.append({
