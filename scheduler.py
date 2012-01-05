@@ -27,6 +27,7 @@ class Scheduler:
         <html>
         <head>
         <link rel="stylesheet" type="text/css" href="style.css" />
+        <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,300&subset=latin' rel='stylesheet' type='text/css'>
         <title>Queen’s Course Calendar Generator</title>
         <script type="text/javascript">
             var _gaq = _gaq || []; _gaq.push(['_setAccount', 'UA-28106132-1']); _gaq.push(['_trackPageview']); 
@@ -41,7 +42,7 @@ class Scheduler:
     @cherrypy.expose
     def index(self):
         html = self.header() + u"""
-        <body>
+        <body onload="addCourse()">
             <script type="text/javascript">
             var courseId = 0;
             function addCourse() 
@@ -56,7 +57,7 @@ class Scheduler:
             <div id="intro" >
                 <div class="step">
                     <h2>Step 1</h2>
-                    Add the names of your courses, e.g., “MATH-414”.
+                    Add the names of your courses, e.g., “MATH-414”, or “Galois Theory”.
                     Leave fields blank to omit them.
                 </div>
                 <div class="step">
@@ -64,7 +65,7 @@ class Scheduler:
                     Add their times and locations. Times can be either
                     a 
                     <a href="http://www.queensu.ca/registrar/currentstudents/coursetimetable/slotcharts.html">
-            pre-SOLUS slot number</a>, or a list like “Mon2:30-4:00,Tue9:00-10:00”.
+            pre-SOLUS slot number</a>, or a list like “Mon 2:30-4:00, Tue 9:00-10:00”.
                 </div>
                 <div class="step">
                     <h2>Step 3</h2>
