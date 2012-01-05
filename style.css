@@ -14,7 +14,8 @@ body {
 }
 
 #page {
-    width:800px;
+    color:#101010;
+    width:600px;
     padding:50px;
     -moz-border-radius: 15px;
     border-radius: 15px;
@@ -24,6 +25,34 @@ body {
     font-family:"Myriad Pro","Myriad Web","Lucida Sans Unicode", "Lucida Grande", sans-serif;
     box-shadow: inset 0 0 15px #888;
 }
+
+.courselabel {
+    min-width:100px;
+}
+
+input {
+    width:150px;
+    min-width:0;
+}
+
+#thetable {
+    width:500px;
+}
+
+#engage { margin-left:auto; }
+
+#page A:link {color:#404040; text-decoration:none;}
+#page A:visited {color:#404040; text-decoration:none;}
+#page A:active {color:#404040; text-decoration:none;}
+#page A:hover {color:#404040; text-decoration:underline;}
+
+#footer A:link {color:#A0A0A0; text-decoration:none;}
+#footer A:visited {color:#A0A0A0; text-decoration:none;}
+#footer A:active {color:#A0A0A0; text-decoration:none;}
+#footer A:hover {color:#A0A0A0; text-decoration:underline;}
+
+
+
 
 
 

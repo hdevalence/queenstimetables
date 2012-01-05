@@ -44,14 +44,15 @@ class Scheduler:
             comma-seperated list of times, e.g., "Mon2:30-4:00,Tue9:00-10:00,Fri12:00-3:00".
             </p>
             </div>
-            <form align="center" id="theform" name="input" action="calendar.ics" method="get">
-                <table>
+            <div id="theform">
+            <form align="center" name="input" action="calendar.ics" method="get">
+                <table id="thetable">
                 <tr><td></td> <td>Course Name</td> <td>Location</td> <td>Slot Number</td></tr>
         """
         for i in range(1,7):
             html += """
                 <tr>
-                    <td>Course %(i)d</td>
+                    <td class="courselabel">Course %(i)d</td>
                     <td><input type="text" name="course%(i)dname"/></td>
                     <td><input type="text" name="course%(i)dlocation"/></td>
                     <td><input type="text" name="course%(i)dslot"/></td>
@@ -59,8 +60,9 @@ class Scheduler:
                 """ % {'i':i}
         html += """
                 </table>
-                <input type="submit" value="Generate Calendar"/>
+                <input id="engage" type="submit" value="Generate Calendar"/>
             </form>
+            </div>
             </div>
         """ + self.footer() + """
         </body>
