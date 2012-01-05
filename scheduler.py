@@ -1,4 +1,5 @@
 #!/usr/bin/env python
+#coding:utf8
 
 """
 A mini webapp to generate icalendar files for people's timetables.
@@ -20,16 +21,16 @@ class Scheduler:
         self.slots = loadslots.loadFromFile(slotfilename)
     @cherrypy.expose
     def index(self):
-        html =  """
+        html =  u"""
         <!DOCTYPE html>
         <html>
         <head>
         <link rel="stylesheet" type="text/css" href="style.css" />
-        <title>Queen's Course Calendar Generator</title>
+        <title>Queen’s Course Calendar Generator</title>
         </head>
         <body>
             <div id="page">
-            <h1>Queen's Timetable Generator</h1>
+            <h1>Queen’s Timetable Generator</h1>
             <div id="intro">
             <p>
             Enter up to six courses below and hit submit to generate an ICalendar
@@ -42,6 +43,7 @@ class Scheduler:
             pre-SOLUS slot numbering scheme</a>,
             or as 
             comma-seperated list of times, e.g., "Mon2:30-4:00,Tue9:00-10:00,Fri12:00-3:00".
+            You can also optionally specify tutorial locations and times.
             </p>
             </div>
             <div id="theform">
