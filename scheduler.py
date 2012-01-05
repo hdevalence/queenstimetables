@@ -113,7 +113,7 @@ class Scheduler:
     def footer(self):
         return """
         <div id="footer">
-        Created by Henry de Valence (ArtSci '13). 
+        Created by Henry de Valence (ArtSci ’13). 
         <a href="mailto:queenstimetables@hdevalence.ca">Send feedback by email</a>.
         </div>
         </body>
@@ -138,6 +138,11 @@ class Scheduler:
             if course['slot'] not in self.slots:
                 try:
                     self.parseTimes(course['slot'])
+                except:
+                    return self.invalidSlot(course)
+            if course['tutslot'] != '' and course['tutslot'] not in self.slots:
+                try:
+                    self.parseTimes(course['tutslot'])
                 except:
                     return self.invalidSlot(course)
         cal = vobject.iCalendar()
@@ -197,13 +202,18 @@ class Scheduler:
 
     def invalidSlot(self,course):
         html= self.header() + u"""
-        <body><div id="page"><div id="errortext">
-        Something has gone terribly wrong!  <br/>
+        <body><div id="page">
+        <h1>Something has gone terribly wrong!</h1>
+        <p>
         We can't find timetable data for your course %(name)s,
-        which you said had slot "%(slot)s". <br/><br/>
+        which you said had lectures in slot “%(slot)s” and tutorials in slot
+        “%(tutslot)s”.
+        </p>
+        <p>
         If you think this is a website error, try emailing
-        <a href="mailto:queenstimetables@hdevalence.ca">queenstimetables@hdevalence.ca</a>. <br/>
-        </div></div>""" %course
+        <a href="mailto:queenstimetables@hdevalence.ca">queenstimetables@hdevalence.ca</a>. 
+        </p>
+        </div>""" %course
         html += self.footer() 
         return html
 
