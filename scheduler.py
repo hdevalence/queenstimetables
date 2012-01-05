@@ -19,21 +19,32 @@ import loadslots
 class Scheduler:
     def __init__(self,slotfilename):
         self.slots = loadslots.loadFromFile(slotfilename)
-    @cherrypy.expose
-    def index(self):
-        html =  u"""
+    def header(self):
+        return u"""
         <!DOCTYPE html>
         <html>
         <head>
         <link rel="stylesheet" type="text/css" href="style.css" />
         <title>Queen’s Course Calendar Generator</title>
+        <script type="text/javascript">
+            var _gaq = _gaq || []; _gaq.push(['_setAccount', 'UA-28106132-1']); _gaq.push(['_trackPageview']); 
+            (function() {
+            var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+            ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+            var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+            })();
+        </script>
         </head>
+        """
+    @cherrypy.expose
+    def index(self):
+        html = self.header() + u"""
         <body>
             <div id="page">
             <h1>Queen’s Timetable Generator</h1>
             <div id="intro">
             <p>
-            Enter up to six courses below and hit submit to generate an ICalendar
+            Enter up to seven courses below and hit submit to generate an ICalendar
             file of your class schedule for use with e.g. Google Calendar, Microsoft Outlook,
             Mozilla Thunderbird, &c.
             </p>
@@ -51,7 +62,7 @@ class Scheduler:
                 <table id="thetable">
                 <tr><td></td> <td>Course Name</td> <td>Location</td> <td>Slot Number</td></tr>
         """
-        for i in range(1,7):
+        for i in range(1,8):
             html += """
                 <tr>
                     <td class="courselabel">Course %(i)d</td>
@@ -72,9 +83,7 @@ class Scheduler:
             </form>
             </div>
             </div>
-        """ + self.footer() + """
-        </body>
-        </html>"""
+        """ + self.footer()
         return html
 
     def footer(self):
@@ -82,13 +91,16 @@ class Scheduler:
         <div id="footer">
         Created by Henry de Valence (ArtSci '13). 
         <a href="mailto:queenstimetables@hdevalence.ca">Send feedback by email</a>.
-        </div>"""
+        </div>
+        </body>
+        </html>
+        """
 
     @cherrypy.expose
     def calendar_ics(self,**kwargs):
         #Build list of courses.
         courses = []
-        for i in range(1,7):
+        for i in range(1,8):
             if kwargs['course%dname' % i] == '':
                 continue
             courses.append({
@@ -160,13 +172,7 @@ class Scheduler:
         ev.add('uid').value = datetime.datetime.utcnow().isoformat().replace(':','') + "@queenstimetables.hdevalence.ca"
 
     def invalidSlot(self,course):
-        html= """
-        <!DOCTYPE html>
-        <html>
-        <head>
-        <link rel="stylesheet" type="text/css" href="style.css" />
-        <title>Error!</title>
-        </head>
+        html= self.header() + u"""
         <body><div id="page"><div id="errortext">
         Something has gone terribly wrong!  <br/>
         We can't find timetable data for your course %(name)s,
@@ -174,7 +180,7 @@ class Scheduler:
         If you think this is a website error, try emailing
         <a href="mailto:queenstimetables@hdevalence.ca">queenstimetables@hdevalence.ca</a>. <br/>
         </div></div>""" %course
-        html += self.footer() + """</body></html>""" 
+        html += self.footer() 
         return html
 
 
