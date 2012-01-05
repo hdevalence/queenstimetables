@@ -82,7 +82,7 @@ class Scheduler:
             <ul>
                 <li class="subrow" id="course%(i)d">
                 <input class="courseitem" type="text"
-                    name="course%(i)slot" placeholder="Lecture Slot/Time">
+                    name="course%(i)dslot" placeholder="Lecture Slot/Time">
                 <input class="courseitem" type="text" 
                     name="course%(i)dlocation" placeholder="Lecture Location">
                 <input class="courseitem" type="text" 
