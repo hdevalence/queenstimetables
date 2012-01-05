@@ -42,20 +42,23 @@ class Scheduler:
         <body>
             <div id="page">
             <h1>Queen’s Timetable Generator</h1>
-            <div id="intro">
-            <p>
-            Enter up to seven courses below and hit submit to generate an ICalendar
-            file of your class schedule for use with e.g. Google Calendar, Microsoft Outlook,
-            Mozilla Thunderbird, &c.
-            </p>
-            <p>
-            You can enter the time as either a slot number in the 
-            <a href="http://www.queensu.ca/registrar/currentstudents/coursetimetable/slotcharts.html">
-            pre-SOLUS slot numbering scheme</a>,
-            or as 
-            comma-seperated list of times, e.g., "Mon2:30-4:00,Tue9:00-10:00,Fri12:00-3:00".
-            You can also optionally specify tutorial locations and times.
-            </p>
+            <div id="intro" >
+                <div class="step">
+                    <h2>Step 1</h2>
+                    Add the names of your courses, e.g., “MATH-414”.
+                </div>
+                <div class="step">
+                    <h2>Step 2</h2>
+                    Add their times and locations. Times can be either
+                    a 
+                    <a href="http://www.queensu.ca/registrar/currentstudents/coursetimetable/slotcharts.html">
+            pre-SOLUS slot number</a>, or a list like “Mon2:30-4:00,Tue9:00-10:00”.
+                </div>
+                <div class="step">
+                    <h2>Step 3</h2>
+                    Click “Generate” to get a file to import into
+                    your favorite calendar program.
+                </div>
             </div>
             <div id="theform">
             <form align="center" name="input" action="calendar.ics" method="get">
