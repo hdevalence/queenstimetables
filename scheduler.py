@@ -57,6 +57,12 @@ class Scheduler:
                     <td><input type="text" name="course%(i)dlocation"/></td>
                     <td><input type="text" name="course%(i)dslot"/></td>
                 </tr>
+                <tr>
+                    <td class="tutoriallabel">Tutorial</td>
+                    <td></td>
+                    <td><input type="text" name="tutorial%(i)dlocation"/></td>
+                    <td><input type="text" name="tutorial%(i)dslot"/></td>
+                </tr>
                 """ % {'i':i}
         html += """
                 </table>
@@ -86,7 +92,9 @@ class Scheduler:
             courses.append({
                 'name':kwargs['course%dname' %i],
                 'location':kwargs['course%dlocation' %i],
-                'slot':kwargs['course%dslot' %i]
+                'slot':kwargs['course%dslot' %i],
+                'tutlocation':kwargs['tutorial%dlocation' %i],
+                'tutslot':kwargs['tutorial%dslot' %i]
                 })
         for course in courses:
             if course['slot'] not in self.slots:
@@ -120,22 +128,31 @@ class Scheduler:
         #Good Friday
         holidays.append( datetime.date(2012,4,6) )
         lectureCounter = 1
+        tutorialCounter = 1
         #It would be 12, but for reading week, we miss a week, so it's 13.
         for weekNum in range(13):
             classtimes = self.slots[course['slot']]
             for dayOffset, startTime, endTime in classtimes:
                 day = termStart + weekNum*week + datetime.timedelta(dayOffset)
-                if day in holidays:
-                    continue
-                start = datetime.datetime.combine( day, startTime )
-                end = datetime.datetime.combine( day, endTime )
-                self.addLecture(cal,course,lectureCounter,start,end)
-                lectureCounter += 1
+                if day not in holidays:
+                    summary = u'%s Lecture \u2116%d' %(course['name'],lectureCounter)
+                    self.addEvent(cal,summary,course['location'],day, startTime, endTime)
+                    lectureCounter += 1
+            if course['tutslot'] != '':
+                tuttimes = self.slots[course['tutslot']]
+                for dayOffset, startTime, endTime in tuttimes:
+                    day = termStart + weekNum*week + datetime.timedelta(dayOffset)
+                    if day not in holidays:
+                        summary = u'%s Tutorial \u2116%d' %(course['name'],tutorialCounter)
+                        self.addEvent(cal,summary,course['tutlocation'],day, startTime, endTime)
+                        tutorialCounter += 1
     
-    def addLecture(self,cal,course,lectNum,start,end):
+    def addEvent(self,cal,summary,location,day,startTime,endTime):
+        start = datetime.datetime.combine( day, startTime )
+        end = datetime.datetime.combine( day, endTime )
         ev = cal.add('vevent')
-        ev.add('summary').value = u'%s Lecture \u2116%d' %(course['name'],lectNum)
-        ev.add('description').value = course['location']
+        ev.add('summary').value = summary
+        ev.add('description').value = location
         ev.add('dtstart').value = start
         ev.add('dtend').value = end
         ev.add('uid').value = datetime.datetime.utcnow().isoformat().replace(':','') + "@queenstimetables.hdevalence.ca"

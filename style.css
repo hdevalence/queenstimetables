@@ -2,6 +2,10 @@ body {
     background-color:#101010;
 }
 
+.h1 {
+    font-weight:100;
+}
+
 #theform {
     margin-left:auto;
     margin-right:auto;
@@ -28,6 +32,10 @@ body {
 
 .courselabel {
     min-width:100px;
+}
+
+.tutoriallabel {
+    font-size:80%;
 }
 
 input {
