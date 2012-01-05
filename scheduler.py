@@ -114,7 +114,7 @@ class Scheduler:
             if course['slot'] not in self.slots:
                 try:
                     self.parseTimes(course['slot'])
-                except IOError:
+                except:
                     return self.invalidSlot(course)
         cal = vobject.iCalendar()
         for course in courses:
