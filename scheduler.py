@@ -125,7 +125,7 @@ class Scheduler:
 
         <div id="footer">
             Created by Henry de Valence (ArtSci ’13). 
-            <a href="mailto:queenstimetables@hdevalence.ca">Send feedback by email</a>.
+            <a href="mailto:queenstimetables@hdevalence.ca">Send feedback by email</a>. Or share:
             <div class="fb-like" data-width="40" data-href="http://queenstimetables.hdevalence.ca" data-send="true" data-layout="button_count" data-show-faces="false" data-action="recommend" ></div>
         </div>
 
