@@ -112,10 +112,22 @@ class Scheduler:
 
     def footer(self):
         return u"""
+        
+        <div id="fb-root"></div>
+        <script>(function(d, s, id) {
+            var js, fjs = d.getElementsByTagName(s)[0];
+            if (d.getElementById(id)) return;
+            js = d.createElement(s); js.id = id;
+            js.src = "//connect.facebook.net/en_GB/all.js#xfbml=1";
+            fjs.parentNode.insertBefore(js, fjs);
+        }(document, 'script', 'facebook-jssdk'));</script>
+
         <div id="footer">
-        Created by Henry de Valence (ArtSci ’13). 
-        <a href="mailto:queenstimetables@hdevalence.ca">Send feedback by email</a>.
+            Created by Henry de Valence (ArtSci ’13). 
+            <a href="mailto:queenstimetables@hdevalence.ca">Send feedback by email</a>.
+            <div class="fb-like" data-width="40" data-href="http://queenstimetables.hdevalence.ca" data-send="true" data-layout="button_count" data-show-faces="false" data-action="recommend" ></div>
         </div>
+
         </body>
         </html>
         """
