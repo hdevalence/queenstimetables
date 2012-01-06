@@ -70,7 +70,8 @@ class Scheduler:
                 <div class="step">
                     <h2>Step 3</h2>
                     Click “Generate” to get a file to import into
-                    your favorite calendar program.
+                    your favorite calendar program. Lectures and tutorials
+                    are numbered and skip holidays.
                 </div>
             </div>
             <div id="theform">
